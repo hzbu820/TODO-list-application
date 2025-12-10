@@ -1,3 +1,97 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafe;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+}
+
+body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Custom Animated Checkbox */
+.checkbox-wrapper input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 1.5px solid #e5e7eb;
+    /* gray-200 */
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Effect */
+.checkbox-wrapper:hover .checkmark {
+    border-color: #9ca3af;
+    /* gray-400 */
+    background-color: #f9fafb;
+    /* gray-50 */
+}
+
+/* Checked State */
+.checkbox-wrapper input:checked~.checkmark {
+    background-color: #1a1a1a;
+    /* gray-900 */
+    border-color: #1a1a1a;
+    transform: scale(1.05);
+}
+
+/* Checkmark Icon */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.1s;
+}
+
+.checkbox-wrapper input:checked~.checkmark:after {
+    transform: rotate(45deg) scale(1);
+    opacity: 1;
+}
+
+/* Pulse animation on click */
+@keyframes check-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(26, 26, 26, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(26, 26, 26, 0);
+    }
+}
+
+.checkbox-wrapper input:checked~.checkmark {
+    animation: check-pulse 0.4s ease-out;
+}
